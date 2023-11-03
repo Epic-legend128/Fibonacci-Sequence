@@ -1,28 +1,26 @@
-<h1> Fibonacci-Sequence</h1>
+# Fibonacci-Sequence
 In this repository I discuss multiple different ways of calculating the fibonacci sequence.
 
-<h2>Table of Contents</h2>
-<ul>
-  <li><a href="#fib">What is the Fibonacci Sequence</a></li>
-  <li><a href="#iteration">Iteration</a></li>
-  <li><a href="#recursion">Recursion</a></li>
-  <li><a href="#memoization">Dynamic Programming(+memoization)</a></li>
-  <li><a href="#matrix">Matrix Exponentiation</a></li>
-  <li><a href="#doubling">Fast Doubling</a></li>
-  <li><a href="#binet">Binet's Formula</a></li>
-</ul>
+## Table of Contents
+  - [What is the Fibonacci Sequence](#what-is-the-fibonacci-sequence)
+  - [Iteration](#iteration)
+  - [Recursion](#recursion)
+  - [Dynamic Programming with Memoization](#dynamic-programming-with-memoization)
+  - [Matrix Exponentiation](#matrix-exponentiation)
+  - [Fast Doubling](#fast-doubling)
+  - [Binet's Formula](#binets-formula)
 
-<h2 id="fib">What is the Fibonacci Sequence</h2>
+## What is the Fibonacci Sequence
 The Fibonacci Sequence is a sequence in mathematics in which each term is the sum of the 2 previous terms. The first 2 terms are 0 and 1, and then the sequence continues as 1,2,3,5,8 etc. Sometimes the first 2 terms are defined as 1 and 1 instead of 0 and 1.
 
-<h2 id="iteration">Iteration</h2>
+## Iteration
 
-<h2 id="recursion">Recursion</h2>
+## Recursion
 
-<h2 id="memoization">Dynamic Programming(+memoization)</h2>
+## Dynamic Programming with Memoization
 
-<h2 id="matrix">Matrix Exponentiation</h2>
+## Matrix Exponentiation
 
-<h2 id="doubling">Fast Doubling</h2>
+## Fast Doubling
 
-<h2 id="binet">Binet's Formula</h2>
+## Binet's Formula
