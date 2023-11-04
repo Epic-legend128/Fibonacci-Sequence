@@ -86,7 +86,66 @@ __uint128_t dynamic(unsigned int n) {
 And that's it. This solution is also completed. It is very short and relatively fast compared to our last solution. It's asymptotic time notation is O(n) as it only calculates each term once, and it basically is like our iterative solution but it starts from the last term and goes towards the first 2(top-down approach). So, this is also not optimal as it calculates a lot of unnecessary terms and also takes up a lot of space.
 
 ## Matrix Exponentiation
+Another way to find the nth term of this sequence is by utilising matrix exponentiation. This is the formula we are going to base our algorithm off:
+```math
+\begin{bmatrix} F(n) \\\ F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{n-1} \begin{bmatrix} F(1) \\\ F(0) \end{bmatrix}
+```
+To verify this formula we can do it this way. Let's assume that the following is true:
+```math
+\begin{bmatrix} F(n) \\\ F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix} \begin{bmatrix} F(n-1) \\\ F(n-2) \end{bmatrix}
+```
+This is easier to verify as by just multiplying the matrices we get: $`1*F(n-1) + 1*F(n-2) = F(n)`$(first value)<br>
+Then the second value of the matrix is just $`1*F(n-1) + 0*F(n-2) = F(n-1)`$. This means that we substitute the matrix on the right like so:
+```math
+\begin{bmatrix} F(n) \\\ F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix} \begin{bmatrix} F(n-2) \\\ F(n-3) \end{bmatrix}
+```
+Then we can just keep on replacing the matrix on the right side by its matrix definition and at the end we are just going to get:
+```math
+\begin{bmatrix} F(n) \\\ F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{n-1} \begin{bmatrix} F(1) \\\ F(0) \end{bmatrix}
+```
+where F(1) = F(0) = 1.
+<br>
+Now this problem has just turned into an exponentiation problem. The fastest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one the powers properties which is $`(x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{n/2}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
+<br>
+The main 2 functions will therefore be:
+```
+using Matrix = std::vector<std::vector<__uint128_t> >;
 
+Matrix power(Matrix ma, int exp) {
+    if (exp <= 1) return ma;
+    if (exp&1) return multiply(power(ma, exp-1), ma);
+    Matrix half = power(ma, exp/2);
+    return multiply(half, half);
+}
+
+__uint128_t matrix(unsigned int n) {
+    if (n <= 0) return 0;
+    if (n <= 2) return 1;
+    if (n == 3) return 2;
+    
+    std::vector<__uint128_t> temp(2, 1);
+    Matrix m;
+    m.push_back(temp);
+    temp.clear(); temp.push_back(1);temp.push_back(0);
+    m.push_back(temp);
+    int exponent = n-3;
+    Matrix f = power(m, exponent);
+    __uint128_t sum = 0;
+    for (auto y: f) {
+        for (auto x: y) {
+            sum += x;
+        }
+    }
+    return sum;
+}
+```
+You may notice how this algorithm is only calculating the matrix to the power of n-3 instead of n-1. Well at n-3 the matrix will look like this:
+```math
+\begin{bmatrix} F(n-2) & F(n-3) \\\ F(n-3) & F(n-4) \end{bmatrix}
+```
+So if we just sum up all of these terms we will once again get F(n) because $`(F(n-2) + F(n-3)) + (F(n-3) + F(n-4)) = F(n-1) + F(n-2) = F(n)`$.
+<br>
+So at the end the final asymptotic time notation of this algorithm mainly from the exponentiation which we optimized and it's just O(n).
 ## Fast Doubling
 
 ## Binet's Formula
