@@ -39,7 +39,35 @@ __uint128_t recursion(unsigned int n) {
 Even though this is very simple to code, its asymptotic time notation is roughly O(2^n), which is superpolynomial and will therefore need a lot of time to calculate even the 50th term. However, it helps us build the next solution with dynamic programming and memoization which is a lot more efficient.
 
 ## Dynamic Programming with Memoization
-This solution improves upon the plain recursive function that we built. So, what makes the recursive solution so slow? The reason lies in the fact that it is constantly calculating terms which we have already calculated previously. So how could we avoid repeating the same call to the function with the same exact arguments? Well, we could use a concept called memoization which basically saves all of our previous solutions in a data structure, which in this case we'll use a hash map, although you could also use an array or a vector(it's actually better to use an array or vector of size n for this case). So every time we find F(n) we store it in our nice little map and if we ever happen to make a call to the function to calculate F(n) again then we can just return what we have saved in our map. So with an extra 2 lines of code we have immensely increased the efficiency of our algorithm.
+This solution improves upon the plain recursive function that we built. So, what makes the recursive solution so slow? The reason lies in the fact that it is constantly calculating terms which we have already calculated previously. This can be demonstrated by the diagram below which shows how F(6) is calculated:
+```mermaid
+graph TD;
+A["F(6)"] --> B["F(5)"]
+A --> C["F(4)"]
+B --> D["F(4)"]
+B --> E["F(3)"]
+C --> F["F(3)"]
+C --> G["F(2)"]
+D --> H["F(3)"]
+D --> I["F(2)"]
+E --> J["F(2)"]
+E --> K["F(1)"]
+F --> L["F(2)"]
+F --> M["F(1)"]
+G --> N["F(1)"]
+G --> O["F(0)"]
+H --> P["F(2)"]
+H --> Q["F(1)"]
+I --> R["F(1)"]
+I --> S["F(0)"]
+J --> T["F(1)"]
+J --> U["F(0)"]
+L --> V["F(1)"]
+L --> W["F(0)"]
+P --> X["F(1)"]
+P --> Y["F(0)"]
+```
+As you can clearly see with just a call to F(6) we are calling the function 25 times to figure out just the 6th term of the sequence. Pretty slow. So how could we avoid repeating the same call to the function with the same exact arguments? Well, we could use a concept called memoization which basically saves all of our previous solutions in a data structure, which in this case we'll use a hash map, although you could also use an array or a vector(it's actually better to use an array or vector of size n for this case). So every time we find F(n) we store it in our nice little map and if we ever happen to make a call to the function to calculate F(n) again then we can just return what we have saved in our map. So with an extra 2 lines of code we have immensely increased the efficiency of our algorithm.
 ```
 __uint128_t dynamic(unsigned int n, std::map<unsigned int, __uint128_t>& fib) {
     if (n <= 1) return n;
@@ -55,7 +83,7 @@ __uint128_t dynamic(unsigned int n) {
     return dynamic(n, fib);
 }
 ```
-And that's it. This solution is also completed. It is very short and relatively fast compared to our last solution. It's asymptotic time notation is also O(n) as it only calculates each term once, and it basically is like our iterative solution but it starts from the last term and goes towards the first 2(top-down approach). So, this is also not optimal as it calculates a lot of unnecessary terms and also takes up a lot of space.
+And that's it. This solution is also completed. It is very short and relatively fast compared to our last solution. It's asymptotic time notation is O(n) as it only calculates each term once, and it basically is like our iterative solution but it starts from the last term and goes towards the first 2(top-down approach). So, this is also not optimal as it calculates a lot of unnecessary terms and also takes up a lot of space.
 
 ## Matrix Exponentiation
 
