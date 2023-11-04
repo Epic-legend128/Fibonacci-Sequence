@@ -145,7 +145,7 @@ You may notice how this algorithm is only calculating the matrix to the power of
 ```
 So if we just sum up all of these terms we will once again get F(n) because $`(F(n-2) + F(n-3)) + (F(n-3) + F(n-4)) = F(n-1) + F(n-2) = F(n)`$.
 <br>
-So at the end the final asymptotic time notation of this algorithm mainly from the exponentiation which we optimized and it's just O(n).
+So at the end the final asymptotic time notation of this algorithm comes mainly from the exponentiation which we optimized and it's just O(n).
 ## Fast Doubling
 
 ## Binet's Formula
