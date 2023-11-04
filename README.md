@@ -146,9 +146,59 @@ You may notice how this algorithm is only calculating the matrix to the power of
 So if we just sum up all of these terms we will once again get F(n) because $`(F(n-2) + F(n-3)) + (F(n-3) + F(n-4)) = F(n-1) + F(n-2) = F(n)`$.
 <br>
 So at the end the final asymptotic time notation of this algorithm comes mainly from the exponentiation which we optimized and it's just O(n).
+
 ## Fast Doubling
 
+
 ## Binet's Formula
+Now let's look at a way to calculate the nth term of the Fibonacci sequence in constant time. Is there a single mathematical formula to calculate a term so fast. Well there is, and to calculate it we use Binet's formula which was named after the mathematician who derived it, Jacques Philippe Marie Binet. The formula is the following:
+```math
+F(n) = \frac{1}{\sqrt{5}} \left[\left(\frac{1+\sqrt{5}}{2} \right)^{\!n} - \left(\frac{1-\sqrt{5}}{2} \right)^{\!n}\right]
+```
+There are a lot of methods of deriving this formula, however, we will make a simple observation based off the quadratic:
+```math
+x^2 = x + 1
+```
+Now if we write what $`x^n`$ is by increasing the n each time by 1 we will see a correlation to the Fibonacci sequence.
+```math
+\displaylines
+{
+x^2 = x + 1 \\
+x^3 = x(x + 1) = x^2 + x = (x + 1) + x = 2x + 1 \\
+x^4 = x(2x + 1) = 2x^2 + x = 2x + 2 + x = 3x + 2 \\
+x^5 = x(3x + 2) = 3(x+1) + 2x = 5x + 3 \\
+x^6 = 8x + 5 \\
+x^7 = 13x + 8 \\
+x^8 = 21x + 13 \\
+...
+}
+```
+If we take a look at the results we can see that $`x^n = F(n)*x + F(n-1)`$
+So we are now trying to find what F(n) equals to based on this equation. We can substitute x with its solutions for the equation $`x^2 - x - 1`$ which by using the quadratic formula we'll get:
+```math
+\displaylines{
+x_1 = \frac{1+\sqrt{5}}{2} \\
+x_2 = \frac{1-\sqrt{5}}{2}
+}
+```
+These solutions must also satisfy our new equation so by plugging them in we'll get:
+
+```math
+\displaylines{
+x_1^n = F(n)*x_1 + F(n-1) \\
+x_2^n = F(n)*x_2 + F(n-1)
+}
+```
+Now if we solve this system of equations:
+```math
+\displaylines{
+x_1^n - x_2^n = F(n)*x_1 + F(n-1) - (F(n)*x_2 + F(n-1)) \\
+x_1^n - x_2^n = F(n) * (x_1 - x_2) \\
+F(n) = \frac{1}{\frac{1+\sqrt{5}}{2} - \frac{1-\sqrt{5}}{2}} (x_1^n - x_2^n) \\
+F(n) = \frac{1}{\sqrt{5}} \left[\left(\frac{1+\sqrt{5}}{2} \right)^{\!n} - \left(\frac{1-\sqrt{5}}{2} \right)^{\!n}\right]
+}
+```
+
 
 
 
