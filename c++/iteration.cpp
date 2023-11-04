@@ -1,6 +1,6 @@
 #include <iostream>
 
-__uint128_t iteration(int n) {
+__uint128_t iteration(unsigned int n) {
     if (n <= 1) return n;
     __uint128_t a=0,b=1;
     for (int i = 2; i<=n; i++) {
@@ -24,7 +24,7 @@ std::string to_string(__uint128_t num) {
 }
 
 int main()  {
-    int n = 1000;
+    unsigned int n;
     std::cout << "Enter n\n";
     std::cin >> n;
     __uint128_t result = iteration(n);

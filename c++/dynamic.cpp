@@ -1,14 +1,14 @@
 #include <iostream>
 #include <map>
 
-__uint128_t dynamic(int n, std::map<int, __uint128_t>& fib) {
+__uint128_t dynamic(unsigned int n, std::map<int, __uint128_t>& fib) {
     if (n <= 1) return n;
     if (fib.find(n) != fib.end()) return fib[n];
     fib[n] = dynamic(n-1, fib) + dynamic(n-2, fib);
     return fib[n];
 }
 
-__uint128_t dynamic(int n) {
+__uint128_t dynamic(unsigned int n) {
     std::map<int, __uint128_t> fib;
     return dynamic(n, fib);
 }
@@ -27,7 +27,7 @@ std::string to_string(__uint128_t num) {
 }
 
 int main()  {
-    int n = 1000;
+    unsigned int n;
     std::cout << "Enter n\n";
     std::cin >> n;
     __uint128_t result = dynamic(n);

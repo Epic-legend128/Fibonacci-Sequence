@@ -1,6 +1,6 @@
 #include <iostream>
 
-__uint128_t recursion(int n) {
+__uint128_t recursion(unsigned int n) {
     if (n <= 1) return n;
     return recursion(n-1) + recursion(n-2);
 }
@@ -19,7 +19,7 @@ std::string to_string(__uint128_t num) {
 }
 
 int main()  {
-    int n = 1000;
+    unsigned int n;
     std::cout << "Enter n\n";
     std::cin >> n;
     __uint128_t result = recursion(n);

@@ -23,7 +23,7 @@ Matrix power(Matrix ma, int exp) {
     return multiply(half, half);
 }
 
-__uint128_t matrix(int n) {
+__uint128_t matrix(unsigned int n) {
     if (n <= 0) return 0;
     if (n <= 2) return 1;
     if (n == 3) return 2;
@@ -58,7 +58,7 @@ std::string to_string(__uint128_t num) {
 }
 
 int main()  {
-    int n = 10;
+    unsigned int n;
     std::cout << "Enter n\n";
     std::cin >> n;
     __uint128_t result = matrix(n);
