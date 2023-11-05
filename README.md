@@ -103,11 +103,19 @@ Then we can just keep on replacing the matrix on the right side by its matrix de
 ```math
 \begin{bmatrix} F(n) \\\ F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{n-1} \begin{bmatrix} F(1) \\\ F(0) \end{bmatrix}
 ```
-where F(1) = F(0) = 1.
+We can do some more adjustments here like so:
+```math
+\begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^n \begin{bmatrix} F(1) & F(0) \\\ F(0) & F(-1) \end{bmatrix}
+```
+And because F(1) = 1, F(0) = 0 and F(-1) = 1 we can therefore just say that:
+```math
+\begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^n
+```
 <br>
 Now this problem has just turned into an exponentiation problem. The fastest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one of the power properties which is $`(x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{n/2}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
 <br>
 The main 2 functions will therefore be:
+
 ```
 using Matrix = std::vector<std::vector<__uint128_t> >;
 
@@ -156,11 +164,7 @@ F(2n) = F(n)*[2F(n+1) - F(n)] \\
 F(2n + 1) = F(n+1)^2 + F(n)^2
 }
 ```
-This fomrulas are just derived from the matrix exponenntiation method. We can rewrite our formula in this way:
-```math
-\begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{n}
-```
-And then we can just plug in 2n instead of n:
+This fomrulas are just derived from the matrix exponentiation method. If we plug in 2n we'll get:
 ```math
 \displaylines
 {
