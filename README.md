@@ -11,7 +11,7 @@ In this repository I discuss multiple different ways of calculating the fibonacc
   - [Binet's Formula](#binets-formula)
 
 ## What is the Fibonacci Sequence
-The Fibonacci Sequence is a sequence in mathematics in which each term is the sum of the 2 previous terms. The recursive mathematival definition is F(n) = F(n-1) + F(n-2). The first 2 terms are 0 and 1, and then the sequence continues as 1,2,3,5,8 etc. Sometimes the first 2 terms are defined as 1 and 1 instead of 0 and 1.
+The Fibonacci Sequence is a sequence in mathematics in which each term is the sum of the 2 previous terms. The recursive mathematival definition is $`F(n) = F(n-1) + F(n-2)`$. The first 2 terms are 0 and 1, and then the sequence continues as 1,2,3,5,8 etc. Sometimes the first 2 terms are defined as 1 and 1 instead of 0 and 1.
 
 ## Iteration
 One of the easiest ways to compute the nth term in the fibonacci sequence is by using a simple for loop starting from the first 2 terms(0 and 1) and building your way upwards towards the term you are looking for(bottom-up approach). Therefore, the code would look something like this in C++:
@@ -29,7 +29,7 @@ __uint128_t iteration(unsigned int n) {
 This algorithm is of course not optimal as it unecessarily calculates all terms of the Fibonacci sequence up until the one you are looking for whereas it should only be calculating the nth term. The asymptotic time notation is O(n) so this method is only useful when trying to calculate mutliple terms of the sequence.
 
 ## Recursion
-The most straightforward and easy way to tackle this problem is to use recursion. We take advantage of the fact that F(n) = F(n-1) + F(n-2) and plug it directly into a nice recursive function with a simple base case of when n <= 1 then it should just return n(F(0) = 0, F(1) = 1). This means that the code needed is just a few lines, like so:
+The most straightforward and easy way to tackle this problem is to use recursion. We take advantage of the fact that $`F(n) = F(n-1) + F(n-2)`$ and plug it directly into a nice recursive function with a simple base case of when n <= 1 then it should just return n(F(0) = 0, F(1) = 1). This means that the code needed is just a few lines, like so:
 ```
 __uint128_t recursion(unsigned int n) {
     if (n <= 1) return n;
@@ -112,7 +112,9 @@ And because F(1) = 1, F(0) = 0 and F(-1) = 1 we can therefore just say that:
 \begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^n
 ```
 <br>
-Now this problem has just turned into an exponentiation problem. The fastest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one of the power properties which is $`(x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{n/2}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
+
+Now this problem has just turned into an exponentiation problem. The f
+astest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one of the power properties which is $` (x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{\frac{n}{2}}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
 <br>
 The main 2 functions will therefore be:
 
@@ -164,7 +166,7 @@ F(2n) = F(n)*[2F(n+1) - F(n)] \\
 F(2n + 1) = F(n+1)^2 + F(n)^2
 }
 ```
-This fomrulas are just derived from the matrix exponentiation method. If we plug in 2n we'll get:
+These formulas are just derived from the matrix exponentiation method. If we plug in 2n we'll get:
 ```math
 \displaylines
 {
