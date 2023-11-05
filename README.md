@@ -105,7 +105,7 @@ Then we can just keep on replacing the matrix on the right side by its matrix de
 ```
 where F(1) = F(0) = 1.
 <br>
-Now this problem has just turned into an exponentiation problem. The fastest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one the powers properties which is $`(x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{n/2}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
+Now this problem has just turned into an exponentiation problem. The fastest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one of the power properties which is $`(x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{n/2}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
 <br>
 The main 2 functions will therefore be:
 ```
@@ -145,10 +145,42 @@ You may notice how this algorithm is only calculating the matrix to the power of
 ```
 So if we just sum up all of these terms we will once again get F(n) because $`(F(n-2) + F(n-3)) + (F(n-3) + F(n-4)) = F(n-1) + F(n-2) = F(n)`$.
 <br>
-So at the end the final asymptotic time notation of this algorithm comes mainly from the exponentiation which we optimized and it's just O(n).
+So at the end the final asymptotic time notation of this algorithm comes mainly from the exponentiation which we optimized and it's just O(logn).
 
 ## Fast Doubling
-
+Calculating the nth term by the method fast doubling is the most efficient and preffered solution when aiming for time optimization. We will use a bit of recursion again but this time we'll use the following formulas:
+```math
+\displaylines
+{
+F(2n) = F(n)*[2F(n+1) - F(n)] \\
+F(2n + 1) = F(n+1)^2 + F(n)^2
+}
+```
+This fomrulas are just derived from the matrix exponenntiation method. We can rewrite our formula in this way:
+```math
+\begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{n}
+```
+And then we can just plug in 2n instead of n:
+```math
+\displaylines
+{
+\begin{bmatrix} F(2n+1) & F(2n) \\\ F(2n) & F(2n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{2n} \\\
+\begin{bmatrix} F(2n+1) & F(2n) \\\ F(2n) & F(2n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{n} \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^{n} \\\
+\begin{bmatrix} F(2n+1) & F(2n) \\\ F(2n) & F(2n-1) \end{bmatrix} = \begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} \begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} \\\
+\begin{bmatrix} F(2n+1) & F(2n) \\\ F(2n) & F(2n-1) \end{bmatrix} = \begin{bmatrix} F(n+1)F(n+1)+F(n)F(n) & F(n+1)F(n)+F(n)F(n-1) \\\ F(n)F(n+1)+F(n-1)F(n) & F(n)F(n)+F(n-1)F(n-1) \end{bmatrix} \\\
+\begin{bmatrix} F(2n+1) & F(2n) \\\ F(2n) & F(2n-1) \end{bmatrix} = \begin{bmatrix} F(n+1)^2 + F(n)^2 & F(n)[F(n+1)+F(n-1)] \\\ F(n)[F(n+1)+F(n-1)] & F(n)^2+F(n-1)^2 \end{bmatrix}
+}
+```
+So we now know the following:
+```math
+\displaylines
+{
+F(2n+1) = F(n+1)^2 + F(n)^2 \\
+F(2n) = F(n)[F(n+1) + F(n-1)] \\
+F(2n) = F(n)\{F(n+1) + [F(n+1)-F(n)]\} \\
+F(2n) = F(n)[2F(n+1) - F(n)]
+}
+```
 
 ## Binet's Formula
 Now let's look at a way to calculate the nth term of the Fibonacci sequence in constant time. Is there a single mathematical formula to calculate a term so fast. Well there is, and to calculate it we use Binet's formula which was named after the mathematician who derived it, Jacques Philippe Marie Binet. The formula is the following:
@@ -198,7 +230,13 @@ F(n) = \frac{1}{\frac{1+\sqrt{5}}{2} - \frac{1-\sqrt{5}}{2}} (x_1^n - x_2^n) \\
 F(n) = \frac{1}{\sqrt{5}} \left[\left(\frac{1+\sqrt{5}}{2} \right)^{\!n} - \left(\frac{1-\sqrt{5}}{2} \right)^{\!n}\right]
 }
 ```
-
+Now we have verified that our formula is true for any case. The implementation is like this:
+```
+long long binet(unsigned int n) {
+    return (long double)(pow((long double)(1+(long double)sqrt(5))/2, n)-pow((long double)(1-(long double)sqrt(5))/2, n))/sqrt(5);
+}
+```
+I used typecasting as much as possible to keep as much precision in the calculations as possible with a long double. However, obviously this formula has limitations as even with a long double it starts to lose precision after roughly the 70th term, so even though its asymptotic time notation is O(1) it actually isn't the preffered solution when solving such problems due to floating point inaccuracies(technically speaking it's actually O(logn) due to the power). In reality, if you were doing it by hand you would see that the irrational parts of the equation would cancel out and therefore the solution will end up being an integer.
 
 
 
