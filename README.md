@@ -113,8 +113,7 @@ And because F(1) = 1, F(0) = 0 and F(-1) = 1 we can therefore just say that:
 ```
 <br>
 
-Now this problem has just turned into an exponentiation problem. The f
-astest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one of the power properties which is $` (x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{\frac{n}{2}}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
+Now this problem has just turned into an exponentiation problem. The fastest way to raise a matrix(or a number) to a value is by utilisng exponentiation by squaring which uses a Divide and Conquer algoirthm to quickly calculate the power. This calculation has an asymptotic time notation of O(logn). The way it works is simple, it takes advantage of one of the power properties which is $` (x^a)^b=x^{a*b}`$. So if you have an even exponent you can just find its value by first figuring out how much $`a^{\frac{n}{2}}`$ is and then multiplying it by itself. If it's odd just multiply the base by the power but now with an even exponent which will utilise the same technique. Now if you do this recursively and with a base case you can very easily find the power of any number(or matrix in this case) raised to the power of n.
 <br>
 The main 2 functions will therefore be:
 
@@ -149,7 +148,7 @@ __uint128_t matrix(unsigned int n) {
     return sum;
 }
 ```
-You may notice how this algorithm is only calculating the matrix to the power of n-3 instead of n-1. Well at n-3 the matrix will look like this:
+You may notice how this algorithm is only calculating the matrix to the power of n-3 instead of n. Well at n-3 the matrix will look like this:
 ```math
 \begin{bmatrix} F(n-2) & F(n-3) \\\ F(n-3) & F(n-4) \end{bmatrix}
 ```
@@ -187,6 +186,7 @@ F(2n) = F(n)\{F(n+1) + [F(n+1)-F(n)]\} \\
 F(2n) = F(n)[2F(n+1) - F(n)]
 }
 ```
+Now let's look at the code for this formulas. First, we are going to make a simple recursive version with some memoization, kind of how we did in the [Dynamic Programming](#dynamic-programming) solution but with different formulas.
 
 ## Binet's Formula
 Now let's look at a way to calculate the nth term of the Fibonacci sequence in constant time. Is there a single mathematical formula to calculate a term so fast. Well there is, and to calculate it we use Binet's formula which was named after the mathematician who derived it, Jacques Philippe Marie Binet. The formula is the following:
