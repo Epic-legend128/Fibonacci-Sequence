@@ -19,7 +19,7 @@ Matrix multiply(Matrix h1, Matrix h2) {
 Matrix power(Matrix ma, int exp) {
     if (exp <= 1) return ma;
     if (exp&1) return multiply(power(ma, exp-1), ma);
-    Matrix half = power(ma, exp/2);
+    Matrix half = power(ma, exp>>1);
     return multiply(half, half);
 }
 

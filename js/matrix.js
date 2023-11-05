@@ -3,7 +3,7 @@ const multiply = (h1, h2) => [[h1[0][0]*h2[0][0]+h1[0][1]*h2[1][0], h1[0][0]*h2[
 function power(matrix, exp) {
     if (exp <= 1) return matrix;
     if (exp&1) return multiply(matrix, power(matrix, exp-1));
-    let m = power(matrix, exp/2);
+    let m = power(matrix, exp>>1);
     return multiply(m, m);
 }
 
