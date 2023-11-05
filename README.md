@@ -9,6 +9,7 @@ In this repository I discuss multiple different ways of calculating the Fibonacc
   - [Matrix Exponentiation](#matrix-exponentiation)
   - [Fast Doubling](#fast-doubling)
   - [Binet's Formula](#binets-formula)
+  - [Limitations and More](#limitations-and-more)
 
 ## What is the Fibonacci Sequence
 The Fibonacci Sequence is a sequence in mathematics in which each term is the sum of the 2 previous terms. The recursive mathematival definition is $`F(n) = F(n-1) + F(n-2)`$. The first 2 terms are 0 and 1, and then the sequence continues as 1,2,3,5,8 etc. Sometimes the first 2 terms are defined as 1 and 1 instead of 0 and 1.
@@ -106,7 +107,7 @@ We can do some more adjustments here like so:
 ```math
 \begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^n \begin{bmatrix} F(1) & F(0) \\\ F(0) & F(-1) \end{bmatrix}
 ```
-And because $`F(1) = 1, F(0) = 0 and F(-1) = 1`$ we can therefore just say that:
+And because $`F(1) = 1, F(0) = 0, F(-1) = 1`$ we can therefore just say that:
 ```math
 \begin{bmatrix} F(n+1) & F(n) \\\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\ 1 & 0 \end{bmatrix}^n
 ```
@@ -294,8 +295,9 @@ long long binet(unsigned int n) {
 ```
 I used typecasting as much as possible to keep as much precision in the calculations as possible with a long double. However, obviously this formula has limitations as even with a long double it starts to lose precision after roughly the 70th term, so even though its asymptotic time notation is $`O(1)`$ it actually isn't the preffered solution when solving such problems due to floating point inaccuracies(technically speaking it's actually $`O(\log_n)`$ due to the power). In reality, if you were doing it by hand you would see that the irrational parts of the equation would cancel out and therefore the solution will end up being an integer.
 
-
-
-
+## Limitations and More
+All of these methods are nice but which one is the best and for which cases. As discussed above Binet's formula is best when doing the calculations by hand, or when trying to use it for small values of n for the computer. Fast doubling and matrix exponentiation are the fastest for large values of n however, fast doubling is slightly faster. Then when trying to calculate all values of the fibonacci sequence up until a limit, then the simple iterative version is probably your best friend. The simple recursive solution is very slow and shouldn't really be used for any case, and the dynamic one is also not the best but introduces some very interesting concepts of programming so even though it's not optimal, you can see how it is related to a lot of other problems. 
+<br>
+I wrote all these solutions in C++ in which I decided to use the biggest built-in integer, __uint128_t which is an unsigned 128-bit integer, meaning it can hold values from 0 all the way to $`2^{128}-1`$, which is a very big number, but when compared to the exponential growth of the fibonacci sequence, it is nothing. Actually, after a simple test I found out that $`F(186)`$ is the biggest value that an unsigned 128-bit integer can hold. With such small n, time complexities don't really matter of course(except for the terrible $`O(2^n)`$, which takes more than a second even for the 40th term). Therefore, for bigger numbers in C++ you would need to use GMP, specifically the gmpxx.h library. However, I decided to just implement the Javascript solutions and use BigInteger() which can hold some very large numbers inside. For example it can calculate even the millionth term which is 208988 digits long. Yeah massive. If you use GMP with C++ I am sure you can also do that and even better as C++ is generally faster.
 
 
