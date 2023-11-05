@@ -158,7 +158,7 @@ So if we just sum up all of these terms we will once again get $`F(n)`$ because 
 So at the end the final asymptotic time notation of this algorithm comes mainly from the exponentiation which we optimized and it's just $`O(\log_n)`$.
 
 ## Fast Doubling
-Calculating the nth term by the method of fast doubling is the most efficient and preffered solution when aiming for time optimization. We will use a bit of recursion again but this time we'll use the following formulas:
+Calculating the nth term by the method of fast doubling is the most efficient and preferred solution when aiming for time optimization. We will use a bit of recursion again but this time we'll use the following formulas:
 ```math
 \displaylines
 {
@@ -238,7 +238,7 @@ __uint128_t fast(unsigned int n) {
     return helper(n)[0];
 }
 ```
-This is the final version of the fast doubling method, it has an asymptotic time notation of $`O(\log_n)`$ but it is actually faster than the matrix solution as its hidden constant term is lower. It could be improved by using arrays however I preffered vectors. So this is the fastest solution discussed here that works for large n. The next one, even though faster, fails to accurately work for large n.
+This is the final version of the fast doubling method, it has an asymptotic time notation of $`O(\log_n)`$ but it is actually faster than the matrix solution as its hidden constant term is lower. It could be improved by using arrays however I preferred vectors. So this is the fastest solution discussed here that works for large n. The next one, even though faster, fails to accurately work for large n.
 
 ## Binet's Formula
 Now let's look at a way to calculate the nth term of the Fibonacci sequence in constant time. Is there a single mathematical formula to calculate a term so fast. Well there is, and to calculate it we use Binet's formula which was named after the mathematician who derived it, Jacques Philippe Marie Binet. The formula is the following:
@@ -294,7 +294,7 @@ long long binet(unsigned int n) {
     return (long double)(pow((long double)(1+(long double)sqrt(5))/2, n)-pow((long double)(1-(long double)sqrt(5))/2, n))/sqrt(5);
 }
 ```
-I used typecasting as much as possible to keep as much precision in the calculations as possible with a long double. However, obviously this formula has limitations as even with a long double it starts to lose precision after roughly the 70th term, so even though its asymptotic time notation is $`O(1)`$ it actually isn't the preffered solution when solving such problems due to floating point inaccuracies(technically speaking it's actually $`O(\log_n)`$ due to the power). In reality, if you were doing it by hand you would see that the irrational parts of the equation would cancel out and therefore the solution will end up being an integer.
+I used typecasting as much as possible to keep as much precision in the calculations as possible with a long double. However, obviously this formula has limitations as even with a long double it starts to lose precision after roughly the 70th term, so even though its asymptotic time notation is $`O(1)`$ it actually isn't the preferred solution when solving such problems due to floating point inaccuracies(technically speaking it's actually $`O(\log_n)`$ due to the power). In reality, if you were doing it by hand you would see that the irrational parts of the equation would cancel out and therefore the solution will end up being an integer.
 
 ## Limitations and More
 All of these methods are nice but which one is the best and for which cases. As discussed above Binet's formula is best when doing the calculations by hand, or when trying to use it for small values of n for the computer. Fast doubling and matrix exponentiation are the fastest for large values of n however, fast doubling is slightly faster. Then when trying to calculate all values of the fibonacci sequence up until a limit, then the simple iterative version is probably your best friend. The simple recursive solution is very slow and shouldn't really be used for any case, and the dynamic one is also not the best but introduces some very interesting concepts of programming so even though it's not optimal, you can see how it is related to a lot of other problems. 
