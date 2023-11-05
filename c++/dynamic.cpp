@@ -4,8 +4,7 @@
 __uint128_t dynamic(unsigned int n, std::map<unsigned int, __uint128_t>& fib) {
     if (n <= 1) return n;
     if (fib.find(n) != fib.end()) return fib[n];
-    fib[n] = dynamic(n-1, fib) + dynamic(n-2, fib);
-    return fib[n];
+    return (fib[n] = dynamic(n-1, fib) + dynamic(n-2, fib));
 }
 
 __uint128_t dynamic(unsigned int n) {

@@ -27,7 +27,6 @@ std::vector<__uint128_t> helper(__uint128_t n) {
     return r;
 }
 
-
 __uint128_t fast(unsigned int n) {
     return helper(n)[0];
 }
