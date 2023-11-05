@@ -10,6 +10,7 @@ In this repository I discuss multiple different ways of calculating the Fibonacc
   - [Fast Doubling](#fast-doubling)
   - [Binet's Formula](#binets-formula)
   - [Limitations and More](#limitations-and-more)
+  - [Bibliography](#bibliography)
 
 ## What is the Fibonacci Sequence
 The Fibonacci Sequence is a sequence in mathematics in which each term is the sum of the 2 previous terms. The recursive mathematival definition is $`F(n) = F(n-1) + F(n-2)`$. The first 2 terms are 0 and 1, and then the sequence continues as 1,2,3,5,8 etc. Sometimes the first 2 terms are defined as 1 and 1 instead of 0 and 1.
@@ -299,5 +300,21 @@ I used typecasting as much as possible to keep as much precision in the calculat
 All of these methods are nice but which one is the best and for which cases. As discussed above Binet's formula is best when doing the calculations by hand, or when trying to use it for small values of n for the computer. Fast doubling and matrix exponentiation are the fastest for large values of n however, fast doubling is slightly faster. Then when trying to calculate all values of the fibonacci sequence up until a limit, then the simple iterative version is probably your best friend. The simple recursive solution is very slow and shouldn't really be used for any case, and the dynamic one is also not the best but introduces some very interesting concepts of programming so even though it's not optimal, you can see how it is related to a lot of other problems. 
 <br>
 I wrote all these solutions in C++ in which I decided to use the biggest built-in integer, __uint128_t which is an unsigned 128-bit integer, meaning it can hold values from 0 all the way to $`2^{128}-1`$, which is a very big number, but when compared to the exponential growth of the fibonacci sequence, it is nothing. Actually, after a simple test I found out that $`F(186)`$ is the biggest value that an unsigned 128-bit integer can hold. With such small n, time complexities don't really matter of course(except for the terrible $`O(2^n)`$, which takes more than a second even for the 40th term). Therefore, for bigger numbers in C++ you would need to use GMP, specifically the gmpxx.h library. However, I decided to just implement the Javascript solutions and use BigInteger() which can hold some very large numbers inside. For example it can calculate even the millionth term which is 208988 digits long. Yeah massive. If you use GMP with C++ I am sure you can also do that and even better as C++ is generally faster.
+<br>
+There is another algorithm which takes advantage of the Lucas numbers, which are very similar with the Fibonacci sequence but start with 4 and 1 instead. There is a correlation between the Fibonacci numbers and the Lucas numbers, and if you carefully examine them you can extract some more formulas which you can then apply for $`O(log_n)`$ time complexity, but this time again with a smaller constant term, making it better than the fast doubling method. You can check out [this](https://stackoverflow.com/questions/14661633/finding-out-nth-fibonacci-number-for-very-large-n/48171368#48171368) stack overflow answer which gives a detailed explanation concerning these solutions.
+<br>
+The Fibonacci Sequence is truly amazing and magical. There are so many patterns and other interesting stuff found inside of it. For example, one of the roots in the matrix exponentiation problem which we calculated was the golden ratio $`φ`$. There is also the case of calculating the Fibonacci sequence for negative n or even finding the gcd between one or more of its terms which results in a pretty interesting result. There are truly way too many aspects to explore related to this sequence, and this repository only talks about a fraction of the sequence's potential and applications.
+
+## Bibliography
+ - Ashwanth K. "Matrix Exponentiation". _Medium_. August 25th. Spider R&D. www.medium.com/spidernitt/matrix-exponentiation-acd80b217d16
+ - Chun-Min Chang. "Matrix Difference Equation for Fibonacci Sequence". _chunminchang_. August 22 2017. https://chunminchang.github.io/blog/post/matrix-difference-equation-for-fibonacci-sequence
+ - Chun-Min Chang. "Calculating Fibonacci Numbers by Fast Doubling". _chunminchang_. August 31 2017. https://chunminchang.github.io/blog/post/calculating-fibonacci-numbers-by-fast-doubling
+ - Tyagi Adarsh. "Fibonacci in Constant Time". _Medium_. May 22 2022. www.medium.com/@adarshtyagi/fibonacci-in-constant-time-945546c9e64c
+ - peelybonehead. "Binet's Formula". _Art of Problem Solving_. www.artofproblemsolving.com/wiki/index.php/Binet%27s_Formula
+
+
+
+
+
 
 
